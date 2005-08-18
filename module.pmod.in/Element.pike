@@ -1,6 +1,7 @@
 //!
 
 import Public.Parser.XML2;
+import .Constants;
 
 private string encodingStyle = 0;
 
@@ -36,7 +37,7 @@ Node render_element()
 
   Node e = element->copy_list();
 
-  e->add_ns(SOAP_ENV_URI, "SOAP-ENV");
+  e->add_ns(SOAP_NAMESPACE_URI, "SOAP-ENV");
 
   if(encodingStyle)
     e->set_ns_attribute("encodingStyle", "SOAP-ENV", encodingStyle);
