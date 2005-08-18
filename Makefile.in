@@ -1,0 +1,24 @@
+# $Id: Makefile.in,v 1.1.1.1 2005-08-18 14:40:36 hww3 Exp $
+@make_variables@
+VPATH=@srcdir@:
+OBJS=
+MODDIR=Public.pmod/
+MODNAME=SOAP
+MODULE_PMOD_IN=module.pmod.in
+MODULE_LDFLAGS=@LDFLAGS@ @LIBS@
+MODULE_INSTALL=
+
+CONFIG_HEADERS=@CONFIG_HEADERS@
+
+@dynamic_module_makefile@
+@dependencies@
+
+release:
+	cvs rtag -D now RELEASE_7_6_${MIN} pike_modules/Public_SOAP
+	cvs export -d Public_SOAP-1.${MIN} -r RELEASE_1_${MIN} pike_modules/Public_SOAP
+	cd Public_SOAP-1.${MIN} && \
+	pike -x module --autoheader && pike -x module --autoconf && \
+	rm -rf autom4*
+	gtar czvf Public_SOAP-1.${MIN}.tar.gz Public_SOAP-1.${MIN}
+	pike upload_module_version.pike Public.SOAP 1.${MIN} "GPL/LGPL/MPL"
+
