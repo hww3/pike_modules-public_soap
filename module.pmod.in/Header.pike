@@ -1,6 +1,7 @@
 //!
 
 import Public.Parser.XML2;
+import Public.SOAP;
 import .Constants;
 
 private array(HeaderElement) elements = ({});

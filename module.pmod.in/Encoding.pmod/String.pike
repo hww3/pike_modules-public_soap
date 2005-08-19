@@ -9,11 +9,11 @@ string contents;
 
 Node encode()
 {
-  node n = new_node(name);
+  Node n = new_node(name);
 
   if(ns) n->add_ns(ns, prefix);
 
   n->set_content(contents);
-  n->set_attribute("xsi:type", "xs:string");
+  n->set_attribute("xsi:type", "SOAP-ENC:string");
   return n;
 }

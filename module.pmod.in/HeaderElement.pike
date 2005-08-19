@@ -1,10 +1,11 @@
 //!
 
 import Public.Parser.XML2;
+import Public.SOAP;
 inherit Element;
 
-private int mustUnderstand = 0;
-private string actor = 0;
+private int mustUnderstand;
+private string actor;
 
 
 //!
@@ -23,7 +24,7 @@ void set_actor(string a)
 void set_element(Node e)
 {
   string ns = e->get_ns();
-  if(!ns || !strlen(ns)
+  if(!ns || !strlen(ns))
   {
     error("set_element(): all header elements must be namespace qualified.\n");
   }
@@ -35,13 +36,13 @@ void set_element(Node e)
 //! attributes.
 Node render_element()
 {
-  e = ::render_element();
+  Node e = ::render_element();
 
   if(actor)
     e->set_ns_attribute("actor", "SOAP-ENV", actor);
 
   if(mustUnderstand)
-    e->set_ns_attribute("mustUnderstand", "SOAP-ENV", mustUnderstand);
+    e->set_ns_attribute("mustUnderstand", "SOAP-ENV", (string)mustUnderstand);
 
   return e;
 }

@@ -1,6 +1,7 @@
 //!
 
 import Public.Parser.XML2;
+import Public.SOAP;
 import .Constants;
 
 private string encodingStyle = 0;
@@ -8,7 +9,7 @@ private string encodingStyle = 0;
 private string namespace = 0;
 private string localname = 0;
 
-private Node element;
+private Encoding.Type element;
 
 //!
 void set_encodingStyle(string s)
@@ -17,12 +18,8 @@ void set_encodingStyle(string s)
 }
 
 //!
-void set_element(Node e)
+void set_element(Encoding.Type e)
 {
-  string ns = e->get_ns();
-
-  namespace = ns;
-  localname = e->get_node_name();
   element = e;
 }
 
@@ -35,7 +32,7 @@ Node render_element()
     error("render_element(): no element set.\n");
   }
 
-  Node e = element->copy_list();
+  Node e = element->encode()->copy_list();
 
   e->add_ns(SOAP_NAMESPACE_URI, "SOAP-ENV");
 

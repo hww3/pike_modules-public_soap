@@ -1,5 +1,7 @@
 //!
 
+import Public.Parser.XML2;
+
 static string name;
 static string type;
 static string ns;
@@ -14,3 +16,6 @@ static void create(string _name, string|void _ns, string|void _prefix)
   if(_ns)
     ns = _ns;
 }
+
+Node encode();
+
