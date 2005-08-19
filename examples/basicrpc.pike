@@ -1,9 +1,9 @@
-int main()
+int main(int argc, array argv)
 {
 object e = Public.SOAP.Envelope();                 
 e->body = Public.SOAP.Body();                      
 object v = Public.SOAP.Encoding.String("St");
-v->set("German");                              
+v->set(sizeof(argv)>1?argv[1]:"German");                              
 object s = Public.SOAP.Encoding.Struct("sayHello");
 s->elements=(["String_1":v]);                      
 object be = Public.SOAP.BodyElement();             
