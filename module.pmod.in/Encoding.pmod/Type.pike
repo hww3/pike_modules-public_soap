@@ -7,6 +7,9 @@ static string type;
 static string ns;
 static string prefix;
 
+static mapping type_constraints = ([]);
+static mapping instance_constraints = ([]);
+
 static void create(string _name, string|void _ns, string|void _prefix)
 {
   name = _name;
