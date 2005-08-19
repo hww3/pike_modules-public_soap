@@ -3,7 +3,7 @@ int main()
 object e = Public.SOAP.Envelope();                 
 e->body = Public.SOAP.Body();                      
 object v = Public.SOAP.Encoding.String("St");
-v->contents="German";                              
+v->set("German");                              
 object s = Public.SOAP.Encoding.Struct("sayHello");
 s->elements=(["String_1":v]);                      
 object be = Public.SOAP.BodyElement();             
