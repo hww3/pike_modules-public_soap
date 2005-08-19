@@ -8,6 +8,11 @@ string type="STRUCT";
 
 mapping elements = ([]);
 
+void add(Type item);
+{
+  elements[item->name] = item;
+}
+
 Node encode()
 {
   Node n = new_node(name);
