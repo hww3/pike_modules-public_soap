@@ -16,11 +16,9 @@ array(HeaderElement) get_elements()
   return elements;
 }
 
-Node render_header()
+Node render_header(Node e)
 {
-  Node h = new_node("Header");
-
-  h->add_ns(SOAP_NAMESPACE_URI, "SOAP-ENV");
+  Node h = e->add_child("Header");
 
   foreach(get_elements(), HeaderElement e)
     h->add_child(e->render_element());

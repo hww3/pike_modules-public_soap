@@ -19,7 +19,7 @@ Node render_envelope()
   
   if(header)
   {
-    e->add_child(header->render_header());
+    header->render_header(e));
   }
 
   if(!body) 
@@ -27,7 +27,7 @@ Node render_envelope()
     error("render_envelope(): a SOAP body is required.\n");
   }
 
-  e->add_child(body->render_body());
+  body->render_body(e);
 
   return e;
 }
