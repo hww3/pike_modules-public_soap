@@ -22,3 +22,4 @@ static void create(string _name, string|void _ns, string|void _prefix)
 
 Node encode();
 
+void set(mixed val);

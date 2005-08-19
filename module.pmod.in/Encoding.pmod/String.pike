@@ -7,6 +7,11 @@ string type="STRING";
 
 string contents;
 
+void set(string s)
+{
+  contents = s;
+}
+
 Node encode()
 {
   Node n = new_node(name);
