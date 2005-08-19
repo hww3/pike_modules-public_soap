@@ -14,11 +14,11 @@ void set(string s)
 
 Node encode(Node b)
 {
-  Node n = b->add_child(name);
+  Node n = b->add_child(new_node(name));
 
   if(ns) n->add_ns(ns, prefix);
 
   n->set_content(contents);
-  n->set_attribute("xsi:type", "SOAP-ENC:string");
+  n->set_attribute("xsi:type", "BODY-ENC:string");
   return n;
 }

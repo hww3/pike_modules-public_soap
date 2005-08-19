@@ -15,13 +15,13 @@ void add(Type item)
 
 Node encode(Node b)
 {
-  Node n = b->add_child(name);
+  Node n = b->add_child(new_node(name));
 
   if(ns) n->add_ns(ns, prefix);
 
   foreach(elements; string name; Type v)
   {
-    n->add_child(v->encode());
+    n->add_child(v->encode(n));
   }
 
   return n;

@@ -20,6 +20,6 @@ static void create(string _name, string|void _ns, string|void _prefix)
     ns = _ns;
 }
 
-Node encode();
+Node encode(Node b);
 
 void set(mixed val);

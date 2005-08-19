@@ -4,7 +4,7 @@ import Public.SOAP;
 import Public.Parser.XML2;
 import .Constants;
 
-private string encodingStyle;
+private string encodingStyle = Encoding.Constants.SOAP_ENCODING_URI;
 private array(BodyElement) elements = ({});
 
 void add_element(BodyElement e)
@@ -19,7 +19,7 @@ array(BodyElement) get_elements()
 
 Node render_body(Node e)
 {
-  Node b = e->add_child("Body");
+  Node b = e->add_child(new_node("Body"));
 
   if(encodingStyle)
     b->add_ns(encodingStyle, "BODY-ENC");
@@ -30,7 +30,7 @@ Node render_body(Node e)
     b->set_ns_attribute("encodingStyle", "SOAP-ENV", encodingStyle);
 
   foreach(get_elements(), BodyElement e)
-    b->add_child(e->render_element());
+    b->add_child(e->render_element(b));
 
   return b;
 }

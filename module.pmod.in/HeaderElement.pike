@@ -34,9 +34,9 @@ void set_element(Node e)
 
 //! returns a copy of the element node, properly configured with any SOAP 
 //! attributes.
-Node render_element()
+Node render_element(Node b)
 {
-  Node e = ::render_element();
+  Node e = ::render_element(b);
 
   if(actor)
     e->set_ns_attribute("actor", "SOAP-ENV", actor);

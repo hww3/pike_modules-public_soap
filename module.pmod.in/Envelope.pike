@@ -19,7 +19,7 @@ Node render_envelope()
   
   if(header)
   {
-    header->render_header(e));
+    header->render_header(e);
   }
 
   if(!body) 

@@ -16,12 +16,12 @@ array(HeaderElement) get_elements()
   return elements;
 }
 
-Node render_header(Node e)
+Node render_header(Node env)
 {
-  Node h = e->add_child("Header");
+  Node h = env->add_child(new_node("Header"));
 
   foreach(get_elements(), HeaderElement e)
-    h->add_child(e->render_element());
+    h->add_child(e->render_element(h));
 
   return h;
 }
