@@ -11,3 +11,29 @@ result)
   input_params = parameters;
   result_param = result;
 }
+
+mixed `()(mixed ... args)
+{
+  if(sizeof(args) != sizeof(input_params))
+    error("incorrect number of input arguments.\n");
+
+  foreach(args; int i; mixed a)
+  {
+    input_args[i]->set(a);
+  }
+
+  object e = Public.SOAP.Envelope();                   
+  e->body = Public.SOAP.Body();                        
+
+  object s = Public.SOAP.Encoding.Struct(method_name);  
+
+  foreach(input_args; int j; mixed input)
+  {
+    s->elements += ([ input->get_name(): input->get_value() ]);  
+  }
+  object be = Public.SOAP.BodyElement();               
+  be->set_element(s);                                  
+  e->body->add_element(be); 
+
+  return e;
+}
