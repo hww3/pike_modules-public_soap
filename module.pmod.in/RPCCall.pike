@@ -1,6 +1,7 @@
 //!
 
 import Public.SOAP;
+import Public.Parser.XML2;
 
 array(RPCParameter) input_params;
 RPCParameter result_param;
@@ -38,4 +39,10 @@ mixed `()(mixed ... args)
   e->body->add_element(be); 
 
   return e;
+}
+
+void decode_result(Node n)
+{
+  // the response should be a struct. we don't care what the name is.
+  Encoding.decode_data(n);  
 }

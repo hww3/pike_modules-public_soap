@@ -22,3 +22,9 @@ Node encode(Node b)
   n->set_attribute("xsi:type", "BODY-ENC:string");
   return n;
 }
+
+void decode(Node n)
+{
+  contents = n->get_contents();
+  name = n->get_node_name();
+}
