@@ -1,3 +1,5 @@
+import Public.Parser.XML2;
+import Public.SOAP;
 
 .Type get_rpc_type(string type)
 {
@@ -5,4 +7,9 @@
     return .String;
   if(type == "boolean")
     return .Boolean;
+}
+
+.Type decode_data(Node data, ServiceDefinition wsdl)
+{
+
 }
