@@ -58,7 +58,7 @@ void decode(Node node)
       {
         body = Body(n);
       }
-      else error("Invalid Envelope contents: %O\n", n->get_node_name()
+      else error("Invalid Envelope contents: %O\n", n->get_node_name());
     }
   }
   else error("Invalid Envelope element.\n");
