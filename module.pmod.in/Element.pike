@@ -11,6 +11,15 @@ private string localname = 0;
 
 private Encoding.Type element;
 
+void create(void|Node n)
+{
+  if(n)
+  {
+    decode(n);
+  }
+}
+
+
 //!
 void set_encodingStyle(string s)
 {
@@ -38,4 +47,9 @@ Node render_element(Node b)
     e->set_ns_attribute("encodingStyle", "ELEMENT-ENV", encodingStyle);
   
   return e;
+}
+
+void decode(Node n)
+{
+  werror("decode element\n");
 }

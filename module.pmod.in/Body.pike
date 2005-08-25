@@ -7,6 +7,12 @@ import .Constants;
 private string encodingStyle = Encoding.Constants.SOAP_ENCODING_URI;
 private array(BodyElement) elements = ({});
 
+void create(void|Node n)
+{
+  if(n)
+    decode(n);
+}
+
 void add_element(BodyElement e)
 {
   elements+=({e});
@@ -35,3 +41,7 @@ Node render_body(Node e)
   return b;
 }
 
+void decode(Node n)
+{
+  werror("decode body\n");
+}

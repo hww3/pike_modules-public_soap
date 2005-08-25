@@ -4,6 +4,12 @@ import Public.Parser.XML2;
 import Public.SOAP;
 import .Constants;
 
+void create(void|Node n)
+{
+  if(n)
+    decode(n);
+}
+
 private array(HeaderElement) elements = ({});
 
 void add_element(HeaderElement e)
@@ -25,3 +31,10 @@ Node render_header(Node env)
 
   return h;
 }
+
+
+void decode(Node n)
+{
+  werror("decode header\n");
+}
+
