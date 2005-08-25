@@ -66,7 +66,14 @@ void decode(Node n)
     foreach(n->children(); int i; Node c)
     {
       werror("node: %O type: %O\n", c->get_node_name(), c->get_node_type());
-      if(c->get_node_type() == Public.Parser.XML2.Constants.ELEMENT_NODE)
+      if(c->get_node_type() == Public.Parser.XML2.Constants.ELEMENT_NODE
+           && c->get_node_name() == "Fault" && c->get_ns() ==
+                Public.SOAP.Constants.SOAP_NAMESPACE_URI)
+      {
+         // we have a fault!
+         add_element(Fault(c));
+      }
+      else if(c->get_node_type() == Public.Parser.XML2.Constants.ELEMENT_NODE)
       {
          add_element(BodyElement(c));
       }

@@ -2,12 +2,18 @@ import Public.Parser.XML2;
 import Public.SOAP;
 import .Constants;
 
+function get_xsd_type = get_rpc_type;
+
 .Type get_rpc_type(string type)
 {
   if(type == "string")
     return .String;
   if(type == "boolean")
     return .Boolean;
+  if(type == "float")
+    return .Float;
+  if(type == "integer")
+    return .Integer;
 }
 
 .Type decode_data(Node data, ServiceDefinition|void wsdl)
@@ -37,18 +43,15 @@ private .Type decode_from_data(Node data)
 werror("attrs: %O %O\n", SOAP_XSI_URI, attrs);
   if(attrs && attrs->type)
   {
-werror("got a type.\n");
        string n,t;
        [n,t] = attrs->type/":";
-werror("ns:  %O\n", n);
-werror("ns:  %O\n", data->get_nss());
        if(data->get_nss()[n] == SOAP_XSD_URI) // we have an xsd type.
        {
-werror("type is " + t + "\n");
-          if(t == "string")
-            val = .String(data);
-          else if(t == "string")
-            val = .Boolean(data);
+          program p = get_xsd_type(t);          
+          if(p)
+            val = p(data);
+          else
+            error("unable to determine deserialization for type " + t + "\n");
        }
     }
 

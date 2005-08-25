@@ -26,7 +26,7 @@ mixed `()(mixed ... args)
   }
 
   object e = Public.SOAP.Envelope();                   
-  e->body = Public.SOAP.Body();                        
+  e->set_body(Public.SOAP.Body());                        
 
   object s = Public.SOAP.Encoding.Struct(method_name);  
 
@@ -36,7 +36,7 @@ mixed `()(mixed ... args)
   }
   object be = Public.SOAP.BodyElement();               
   be->set_element(s);                                  
-  e->body->add_element(be); 
+  e->get_body()->add_element(be); 
 
   return e;
 }

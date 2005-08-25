@@ -56,6 +56,6 @@ Node render_element(Node b)
 
 void decode(Node n)
 {
-  werror("decode element\n");
+  werror("decode Element\n");
   element = Encoding.decode_data(n);  
 }

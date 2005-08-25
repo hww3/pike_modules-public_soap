@@ -10,10 +10,10 @@ int contents = UNDEFINED;
 void set(int|string val)
 {
   if(intp(val)) 
-    value = val;
-  else if(!sscanf(val, "%d", value))
+    contents = val;
+  else if(!sscanf(val, "%d", contents))
   {
-    error("invalid boolean value %s\n", (string)val);
+    error("invalid integer value %s\n", (string)val);
   }
 }
 

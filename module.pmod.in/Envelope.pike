@@ -5,8 +5,8 @@ import Public.SOAP;
 import .Constants;
 import .Encoding.Constants;
 
-Header header;
-Body body;
+static Header header;
+static Body body;
 
 void create(void|Node n)
 {
@@ -14,8 +14,25 @@ void create(void|Node n)
     decode(n);
 }
 
+void set_body(.Body b)
+{
+  body = b;
+}
+
+.Body get_body()
+{ 
+  return body;
+}
+
+.Header get_header()
+{ 
+  return header;
+}
+
 Node render_envelope()
 {
+//  Node e = new_xml("1.0", "Envelope");
+
   Node e = new_node("Envelope");
 
   e->add_ns(SOAP_NAMESPACE_URI, "SOAP-ENV");
