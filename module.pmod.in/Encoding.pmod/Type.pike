@@ -37,3 +37,8 @@ string get_name()
 {
   return name;
 }
+
+string get_type()
+{
+  return type;
+}
