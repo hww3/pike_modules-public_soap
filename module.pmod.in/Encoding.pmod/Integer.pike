@@ -27,3 +27,9 @@ Node encode(Node b)
   n->set_attribute("xsi:type", "BODY-ENC:integer");
   return n;
 }
+
+mixed get_value()
+{
+  return contents;
+}
+

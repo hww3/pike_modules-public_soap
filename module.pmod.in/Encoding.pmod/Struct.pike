@@ -6,11 +6,24 @@ import .Constants;
 
 string type="STRUCT";
 
-mapping elements = ([]);
+static mapping elements = ([]);
+static array order = ({});
 
 void add(Type item)
 {
-  elements[item->name] = item;
+write("added %O\n", item->get_name());
+  order += ({ item->get_name() });
+  elements[item->get_name()] = item;
+}
+
+array get_order()
+{
+  return order + ({});
+}
+
+mapping get_elements()
+{
+  return elements +([]);
 }
 
 void decode(Node d)
@@ -23,21 +36,28 @@ werror("name of struct: %O\n", name);
     {
       Type item = decode_data(c);
       if(item)
-        elements[item->name] = item;
+        add(item);
     }
   }
 }
 
 Node encode(Node b)
 {
-  Node n = b->add_child(new_node(name));
+  Node n = b->add_child(new_node(get_name()));
 
   if(ns) n->add_ns(ns, prefix);
 
-  foreach(elements; string name; Type v)
+  mapping e = get_elements();
+
+  foreach(get_order(); int i; string nom)
   {
-    n->add_child(v->encode(n));
+    n->add_child(e[nom]->encode(n));
   }
 
   return n;
+}
+
+mixed get_value()
+{
+  return get_elements();
 }

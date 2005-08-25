@@ -25,6 +25,11 @@ Node encode(Node b)
 
 void decode(Node n)
 {
-  contents = n->get_contents();
+  contents = n->get_text();
   name = n->get_node_name();
+}
+
+mixed get_value()
+{
+  return contents;
 }

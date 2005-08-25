@@ -32,7 +32,7 @@ mixed `()(mixed ... args)
 
   foreach(input_params; int j; mixed input)
   {
-    s->elements += ([ input->get_name(): input->get_value() ]);  
+    s->add(input->get_value());  
   }
   object be = Public.SOAP.BodyElement();               
   be->set_element(s);                                  

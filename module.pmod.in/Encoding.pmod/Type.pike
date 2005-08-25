@@ -30,3 +30,10 @@ Node encode(Node b);
 void decode(Node v);
 
 void set(mixed val);
+
+mixed get_value();
+
+string get_name()
+{
+  return name;
+}
