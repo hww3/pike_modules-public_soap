@@ -26,6 +26,11 @@ void set_encodingStyle(string s)
   encodingStyle = s;
 }
 
+Encoding.Type get_element()
+{
+  return element;
+}
+
 //!
 void set_element(Encoding.Type e)
 {
