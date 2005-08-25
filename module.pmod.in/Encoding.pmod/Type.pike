@@ -10,8 +10,13 @@ static string prefix;
 static mapping type_constraints = ([]);
 static mapping instance_constraints = ([]);
 
-static void create(string _name, string|void _ns, string|void _prefix)
+static void create(Node|string _name, string|void _ns, string|void _prefix)
 {
+  if(objectp(_name))
+  {
+    decode(_name);
+    return;
+  }
   name = _name;
 
   if(_prefix)
@@ -21,5 +26,7 @@ static void create(string _name, string|void _ns, string|void _prefix)
 }
 
 Node encode(Node b);
+
+void decode(Node v);
 
 void set(mixed val);

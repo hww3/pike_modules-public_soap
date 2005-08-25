@@ -1,8 +1,8 @@
 
-Type get_rpc_type(string type)
+.Type get_rpc_type(string type)
 {
   if(type == "string")
-    return Encoding.String;
+    return .String;
   if(type == "boolean")
-    return Encoding.Boolean;
+    return .Boolean;
 }
