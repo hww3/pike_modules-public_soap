@@ -4,6 +4,7 @@ import Public.Parser.XML2;
 import .Constants;
 
 string type="INTEGER";
+string xsi_type = "integer";
 
 int contents = UNDEFINED;
 
@@ -24,7 +25,7 @@ Node encode(Node b)
   if(ns) n->add_ns(ns, prefix);
 
   n->set_content((string)contents);
-  n->set_attribute("xsi:type", "BODY-ENC:integer");
+  n->set_attribute("xsi:type", "BODY-ENC:" + xsi_type);
   return n;
 }
 

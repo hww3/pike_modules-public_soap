@@ -6,6 +6,7 @@ static string name;
 static string type;
 static string ns;
 static string prefix;
+static string xsi_type;
 
 static mapping type_constraints = ([]);
 static mapping instance_constraints = ([]);

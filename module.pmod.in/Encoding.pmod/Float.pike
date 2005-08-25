@@ -4,6 +4,7 @@ import Public.Parser.XML2;
 import .Constants;
 
 string type="FLOAT";
+string xsi_type = "float";
 
 float contents;
 
@@ -24,7 +25,7 @@ Node encode(Node b)
   if(ns) n->add_ns(ns, prefix);
 
   n->set_content(sprintf("%f", contents));
-  n->set_attribute("xsi:type", "BODY-ENC:float");
+  n->set_attribute("xsi:type", "BODY-ENC:" + xsi_type);
   return n;
 }
 

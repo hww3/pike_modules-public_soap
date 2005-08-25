@@ -4,6 +4,7 @@ import Public.Parser.XML2;
 import .Constants;
 
 string type="STRING";
+string xsi_type = "string";
 
 string contents;
 
@@ -19,7 +20,7 @@ Node encode(Node b)
   if(ns) n->add_ns(ns, prefix);
 
   n->set_content(contents);
-  n->set_attribute("xsi:type", "BODY-ENC:string");
+  n->set_attribute("xsi:type", "BODY-ENC:" + xsi_type);
   return n;
 }
 

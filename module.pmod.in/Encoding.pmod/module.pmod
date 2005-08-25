@@ -12,6 +12,8 @@ function get_xsd_type = get_rpc_type;
     return .Boolean;
   if(type == "float")
     return .Float;
+  if(type == "double")
+    return .Double;
   if(type == "integer")
     return .Integer;
 }
