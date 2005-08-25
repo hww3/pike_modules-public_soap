@@ -5,26 +5,26 @@ import Public.SOAP;
 static string name;
 static string type;
 
-static Encoding.Type value;
+static Encoding.Type val;
 
 static void create(string|void name, string type)
 {
-  value = Encoding.get_rpc_type(type)(name);
+  val = Encoding.get_rpc_type(type)(name);
 }
 
-void set(mixed v);
+void set(mixed v)
 {
-  value->set(v);
+  val->set(v);
 }
 
 void set_value(Encoding.Type v)
 {
-  value = v;
+  val = v;
 }
 
 Encoding.Type get_value()
 {
-  return value;
+  return val;
 }
 
 string get_type()

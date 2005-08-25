@@ -1,8 +1,10 @@
 //!
 
+import Public.SOAP;
+
 array(RPCParameter) input_params;
 RPCParameter result_param;
-string method_name
+string method_name;
 
 void create(string method, array(RPCParameter) parameters, RPCParameter 
 result)
@@ -19,7 +21,7 @@ mixed `()(mixed ... args)
 
   foreach(args; int i; mixed a)
   {
-    input_args[i]->set(a);
+    input_params[i]->set(a);
   }
 
   object e = Public.SOAP.Envelope();                   
@@ -27,7 +29,7 @@ mixed `()(mixed ... args)
 
   object s = Public.SOAP.Encoding.Struct(method_name);  
 
-  foreach(input_args; int j; mixed input)
+  foreach(input_params; int j; mixed input)
   {
     s->elements += ([ input->get_name(): input->get_value() ]);  
   }
