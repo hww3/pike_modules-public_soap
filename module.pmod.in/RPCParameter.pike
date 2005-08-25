@@ -14,7 +14,12 @@ static void create(string|void name, string type)
 
 void set(mixed v)
 {
-  val->set(v);
+  if(v == UNDEFINED)
+  {
+    werror("undefined value!\n");
+  }
+  else
+    val->set(v);
 }
 
 void set_value(Encoding.Type v)

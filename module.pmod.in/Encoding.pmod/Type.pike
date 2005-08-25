@@ -7,7 +7,7 @@ static string type;
 static string ns;
 static string prefix;
 static string xsi_type;
-
+static int value_set = 0;
 static mapping type_constraints = ([]);
 static mapping instance_constraints = ([]);
 
@@ -43,3 +43,5 @@ string get_type()
 {
   return type;
 }
+
+mixed get_native_type();

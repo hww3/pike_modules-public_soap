@@ -1,6 +1,6 @@
 //!
 
-inherit .Float;
+inherit .Integer;
 
 string xsi_type = "double";
-string type = "FLOAT";
+string type = "DOUBLE";

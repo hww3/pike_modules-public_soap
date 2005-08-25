@@ -11,6 +11,7 @@ string contents;
 void set(string s)
 {
   contents = s;
+  value_set = 1;
 }
 
 Node encode(Node b)
@@ -19,7 +20,8 @@ Node encode(Node b)
 
   if(ns) n->add_ns(ns, prefix);
 
-  n->set_content(contents);
+  if(value_set)
+    n->set_content(contents);
   n->set_attribute("xsi:type", "BODY-ENC:" + xsi_type);
   return n;
 }
@@ -31,6 +33,11 @@ void decode(Node n)
 }
 
 mixed get_value()
+{
+  return contents;
+}
+
+string get_native_type()
 {
   return contents;
 }

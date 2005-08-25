@@ -16,6 +16,8 @@ void set(float|string val)
   {
     error("invalid float value %s\n", (string)val);
   }
+
+  value_set = 1;
 }
 
 Node encode(Node b)
@@ -24,12 +26,18 @@ Node encode(Node b)
 
   if(ns) n->add_ns(ns, prefix);
 
-  n->set_content(sprintf("%f", contents));
+  if(value_set)
+    n->set_content(sprintf("%f", contents));
   n->set_attribute("xsi:type", "BODY-ENC:" + xsi_type);
   return n;
 }
 
 mixed get_value()
+{
+  return contents;
+}
+
+float get_native_type()
 {
   return contents;
 }

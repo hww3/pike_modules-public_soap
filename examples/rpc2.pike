@@ -1,16 +1,14 @@
 int main()
 {
+object n = Public.SOAP.RPCParameter("topics", "string");
+object m = Public.SOAP.RPCParameter("minLength", "double");
+object l = Public.SOAP.RPCParameter("maxLength", "double");
+object o = Public.SOAP.RPCParameter("fortune", "string");
+object c = Public.SOAP.RPCCall("getFortune", ({n, m, l}), o);
+c->set_endpoint("http://www.doughughes.net/WebServices/fortune/fortune.cfc");
+mixed e  =c(UNDEFINED, UNDEFINED, UNDEFINED);
 
-  object n = Public.SOAP.RPCParameter("language", "string");  
-  object o = Public.SOAP.RPCParameter("helo", "string"); 
-  object c = Public.SOAP.RPCCall("sayHello", ({n}), o);
-  object e = c("french"); 
-  object q = Protocols.HTTP.do_method("POST", 
-     "http://lepago.homeip.net:80/HelloLangJB4EAR/HelloLangJB4EJB/HelloLangEndpointPort", 
-     0, (["SOAPAction": "\"\"", "Content-Type": "text/xml"]), 0, 
-     (string)e->render_envelope()); 
-  write("RESPONSE: " + q->data()); 
-
+write(e + "\n");
   return 0;
 }
 
