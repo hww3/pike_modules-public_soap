@@ -46,6 +46,24 @@ Node render_element(Node b)
     error("render_element(): no element set.\n");
   }
 
+  Node r = b->get_root_node();
+
+  foreach(element->get_namespaces(), string element_ns)
+  {
+
+    int i = 1;
+    int gns = 0;
+    mapping nss =  r->get_nss();
+    do
+    {
+      if(search(nss, "ens" + i))
+        gns = 1;
+      i++;
+    } while(!gns);
+
+    r->add_ns(element_ns, "ems" + i);
+  }
+
   Node e = element->encode(b)->copy_list();
 
   if(encodingStyle)

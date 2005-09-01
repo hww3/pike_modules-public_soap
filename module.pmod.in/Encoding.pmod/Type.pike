@@ -10,6 +10,7 @@ static string xsi_type;
 static int value_set = 0;
 static mapping type_constraints = ([]);
 static mapping instance_constraints = ([]);
+static array namespaces = ({});
 
 static void create(Node|string _name, string|void _ns, string|void _prefix)
 {
@@ -45,3 +46,13 @@ string get_type()
 }
 
 mixed get_native_type();
+
+array get_namespaces()
+{
+  return namespaces;
+}
+
+void set_namespaces(array tns)
+{
+   namespaces = copy_value(tns);
+}
