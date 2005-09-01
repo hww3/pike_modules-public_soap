@@ -11,7 +11,6 @@ static array order = ({});
 
 void add(Type item)
 {
-write("added %O\n", item->get_name());
   order += ({ item->get_name() });
   elements[item->get_name()] = item;
 }
@@ -29,7 +28,6 @@ mapping get_elements()
 void decode(Node d)
 {
   name = d->get_node_name();
-werror("name of struct: %O\n", name);
   if(d->children())
   {
     foreach(d->children(); mixed v; Node c)

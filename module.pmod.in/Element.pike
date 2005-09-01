@@ -46,9 +46,14 @@ Node render_element(Node b)
     error("render_element(): no element set.\n");
   }
 
-  Node r = b->get_root_node();
+  Node r = b->parent();
 
-  foreach(element->get_namespaces(), string element_ns)
+  Node e = element->encode(b);
+
+  if(encodingStyle)
+    e->set_ns_attribute("encodingStyle", "ELEMENT-ENV", encodingStyle);
+
+  foreach(element->get_namespaces(); int x; string element_ns)
   {
 
     int i = 1;
@@ -56,24 +61,19 @@ Node render_element(Node b)
     mapping nss =  r->get_nss();
     do
     {
-      if(search(nss, "ens" + i))
+      if(search(nss, "ens" + i)!= -1)
         gns = 1;
       i++;
     } while(!gns);
 
-    r->add_ns(element_ns, "ems" + i);
+    r->add_ns(element_ns, "ens" + i);
+
+    if(x == 0) e->set_ns("ens" + i);
   }
-
-  Node e = element->encode(b)->copy_list();
-
-  if(encodingStyle)
-    e->set_ns_attribute("encodingStyle", "ELEMENT-ENV", encodingStyle);
-  
   return e;
 }
 
 void decode(Node n)
 {
-  werror("decode Element\n");
   element = Encoding.decode_data(n);  
 }

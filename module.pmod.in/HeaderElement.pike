@@ -2,6 +2,7 @@
 
 import Public.Parser.XML2;
 import Public.SOAP;
+import Public.SOAP.Constants;
 inherit Element;
 
 private int mustUnderstand;

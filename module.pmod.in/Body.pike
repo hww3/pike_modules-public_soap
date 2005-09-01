@@ -39,15 +39,14 @@ Node render_body(Node e)
 
   if(encodingStyle)
     b->set_ns_attribute("encodingStyle", SOAP_NAMESPACE_PREFIX, encodingStyle);
-  foreach(get_elements(), BodyElement e)
-    b->add_child(e->render_element(b));
+  foreach(get_elements(), BodyElement elem)
+    b->add_child(elem->render_element(b));
 
   return b;
 }
 
 void decode(Node n)
 {
-  werror("decode body\n");
   if(n->get_node_name() == "Body" && n->get_ns() == SOAP_NAMESPACE_URI)
   {
 

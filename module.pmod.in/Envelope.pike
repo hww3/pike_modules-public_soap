@@ -64,7 +64,6 @@ void decode(Node node)
     {
       if(n->get_node_type() != Public.Parser.XML2.Constants.ELEMENT_NODE)
       {
-        werror("got non element data.\n");
         continue;
       }
       else if(n->get_node_name() == "Header" && node->get_ns() == SOAP_NAMESPACE_URI)

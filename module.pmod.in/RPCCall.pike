@@ -6,7 +6,9 @@ import Public.Parser.XML2;
 static array(RPCParameter) input_params;
 static RPCParameter result_param;
 static string method_name;
+static string soap_action;
 static string endpoint;
+static string call_ns;
 
 void create(string method, array(RPCParameter) parameters, RPCParameter result)
 {
@@ -18,6 +20,16 @@ void create(string method, array(RPCParameter) parameters, RPCParameter result)
 void set_endpoint(string url)
 {
   endpoint = url;
+}
+
+void set_soapaction(string action)
+{
+  soap_action = action;
+}
+
+void set_call_ns(string ns_uri)
+{
+  call_ns = ns_uri;
 }
 
 array `()(mixed ... args)
@@ -34,6 +46,8 @@ array `()(mixed ... args)
   e->set_body(Public.SOAP.Body());                        
 
   object s = Public.SOAP.Encoding.Struct(method_name);  
+  if(call_ns)
+    s->set_namespaces(({call_ns}));
 
   foreach(input_params; int j; mixed input)
   {
@@ -44,7 +58,7 @@ array `()(mixed ... args)
   e->get_body()->add_element(be); 
 
   object q = Protocols.HTTP.do_method("POST", endpoint,  0, 
-    (["SOAPAction": "\"\"", "Content-Type": "text/xml"]), 0,  
+    (["SOAPAction": soap_action?sprintf("\"%s\"", soap_action):"\"\"", "Content-Type": "text/xml"]), 0,  
     (string)e->render_envelope());
 
   object rn = Public.Parser.XML2.parse_xml(q->data());

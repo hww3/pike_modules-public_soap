@@ -16,7 +16,7 @@ void set(mixed v)
 {
   if(v == UNDEFINED)
   {
-    werror("undefined value!\n");
+//    werror("undefined value!\n");
   }
   else
     val->set(v);
