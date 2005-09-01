@@ -33,13 +33,12 @@ Node render_body(Node e)
   Node b = e->add_child(new_node("Body"));
 
   if(encodingStyle)
-    b->add_ns(encodingStyle, "BODY-ENC");
+    b->add_ns(encodingStyle, SOAP_ENCODING_PREFIX);
 
-  b->set_ns("SOAP-ENV");
+  b->set_ns(SOAP_NAMESPACE_PREFIX);
 
   if(encodingStyle)
-    b->set_ns_attribute("encodingStyle", "SOAP-ENV", encodingStyle);
-
+    b->set_ns_attribute("encodingStyle", SOAP_NAMESPACE_PREFIX, encodingStyle);
   foreach(get_elements(), BodyElement e)
     b->add_child(e->render_element(b));
 
@@ -59,7 +58,6 @@ void decode(Node n)
 
     if(attrs->encodingStyle)
     {
-      werror("setting encoding Style.\n"); 
       encodingStyle = attrs->encodingStyle;
     }
 

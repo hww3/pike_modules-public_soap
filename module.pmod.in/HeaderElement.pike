@@ -39,10 +39,10 @@ Node render_element(Node b)
   Node e = ::render_element(b);
 
   if(actor)
-    e->set_ns_attribute("actor", "SOAP-ENV", actor);
+    e->set_ns_attribute("actor", SOAP_NAMESPACE_PREFIX, actor);
 
   if(mustUnderstand)
-    e->set_ns_attribute("mustUnderstand", "SOAP-ENV", (string)mustUnderstand);
+    e->set_ns_attribute("mustUnderstand", SOAP_NAMESPACE_PREFIX, (string)mustUnderstand);
 
   return e;
 }
