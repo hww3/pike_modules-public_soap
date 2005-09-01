@@ -15,6 +15,49 @@ static mapping(string:SOAPBinding) bindings = ([]);
 static mapping(string:SOAPPort) ports = ([]);
 static mapping(string:SOAPService) services = ([]);
 
+//!
+mapping get_types()
+{
+   return types;
+}
+
+//!
+mapping get_messages()
+{
+   return messages;
+}
+
+//!
+mapping get_operations()
+{
+   return operations;
+}
+
+//!
+mapping get_porttypes()
+{
+   return porttypes;
+}
+
+//!
+mapping get_bindings()
+{
+   return bindings;
+}
+
+//!
+mapping get_services()
+{
+   return services;
+}
+
+//!
+mapping get_ports()
+{
+   return ports;
+}
+
+//!
 static void create(Node|void wsdlnode)
 {
   if(wsdlnode)
@@ -23,26 +66,31 @@ static void create(Node|void wsdlnode)
   } 
 }
 
+//!
 string get_name()
 {
   return name;
 }
 
+//!
 string get_target_namespace()
 {
   return target_namespace;
 }
 
+//!
 void set_name(string _name)
 {
   name = _name;
 }
 
+//!
 void set_target_namespace(string _target_namespace)
 {
   target_namespace = _target_namespace;
 }
 
+//!
 void decode(Node w)
 {
   // first, we see if we're in the right namespace.
@@ -72,16 +120,20 @@ void decode(Node w)
 
     else if (c->get_ns() == WSDL_NAMESPACE_URI)
     {
-       werror("looking at: %O\n", c->get_node_name());
        switch(c->get_node_name())
        {
           case "documentation":
             break;
  
           case "types":
+            // the types element is tricky, because we can have multiple 
+            // definitions within a single tag.
+
             break;
 
           case "message":
+            SOAPMessage m = SOAPMessage(c);
+            messages[m->get_name()] = m;
             break;
 
           case "portType":
@@ -109,6 +161,113 @@ class SOAPType
 //!
 class SOAPMessage
 {
+  static string name;
+  array part_order = ({});
+  mapping parts = ([]);
+
+  //!
+  void create(void|Node m)
+  {
+    if(m) decode(m);
+  }
+
+  //!
+  mapping get_parts()
+  {
+    return parts;
+  }
+ 
+  //!
+  array get_part_order()
+  {
+    return part_order;
+  }
+
+  //!
+  string get_name()
+  {
+    return name;
+  }
+
+  //!
+  void set_name(string _name)
+  {
+    name = _name;
+  }
+
+  //!
+  void decode(Node m)
+  {
+    name = m->get_attributes()->name;    
+
+    foreach(m->children(); int i; Node c)
+    {
+      if(c->get_node_type() != Public.Parser.XML2.Constants.ELEMENT_NODE)
+        continue;
+
+      if(c->get_node_name() == "part") // let's parse a part...
+      {
+         mapping a = c->get_attributes();
+
+         part_order += ({ a->name });
+         Part p = Part();
+         p->set_name(a->name);
+         p->set_element(a->element);
+         p->set_type(a->type);         
+        
+         parts[p->get_name()] = p;
+      }        
+    }
+  }
+
+  //!
+  class Part
+  {
+    static string name;
+    static string element;
+    static string type;
+ 
+    //!
+    void create()
+    {
+    }
+    
+    //!
+    void set_name(string _name)
+    {
+       name = _name;
+    }
+
+    //!    
+    void set_element(string _element)
+    {
+       element = _element;
+    }
+
+    //!
+    void set_type(string _type)
+    {
+       type = _type;
+    }
+
+    //!
+    string get_name()
+    {
+      return name;
+    }
+
+    //!
+    string get_element()
+    {
+      return element;
+    }
+
+    //!
+    string get_type()
+    {
+      return type;
+    }
+  }
 }
 
 //!
