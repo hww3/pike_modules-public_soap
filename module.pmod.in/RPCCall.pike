@@ -3,18 +3,26 @@
 import Public.SOAP;
 import Public.Parser.XML2;
 
-static array(RPCParameter) input_params;
+static array(RPCParameter) input_params = ({});
 static RPCParameter result_param;
 static string method_name;
 static string soap_action;
 static string endpoint;
 static string call_ns;
 
-void create(string method, array(RPCParameter) parameters, RPCParameter result)
+void create(string method)
 {
   method_name = method;
-  input_params = parameters;
-  result_param = result;
+}
+
+void add_parameter(RPCParameter p)
+{
+  input_params += ({ p });
+}
+
+void set_result(RPCParameter p)
+{
+  result_param = p;
 }
 
 void set_endpoint(string url)

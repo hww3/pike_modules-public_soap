@@ -1,7 +1,10 @@
 int main()
 {
-object o = Public.SOAP.RPCParameter("return", "string");
-object c = Public.SOAP.RPCCall("getQuote", ({}), o);
+object c = Public.SOAP.RPCCall("getQuote");
+
+c->set_result(Public.SOAP.RPCParameter("getQuoteResult", 
+  Public.SOAP.Encoding.String, Public.SOAP.Encoding.Constants.RPCOUT));
+
 c->set_endpoint("http://webservices.codingtheweb.com/bin/qotd");
 c->set_call_ns("urn:xmethods-qotd");
 c->set_soapaction("urn:xmethods-qotd#getQuote");

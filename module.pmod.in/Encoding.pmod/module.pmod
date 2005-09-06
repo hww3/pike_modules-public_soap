@@ -2,6 +2,13 @@ import Public.Parser.XML2;
 import Public.SOAP;
 import .Constants;
 
+enum RPCParamDirection 
+{
+  IN,
+  OUT,
+  INOUT
+};
+
 function get_xsd_type = get_rpc_type;
 
 .Type get_rpc_type(string type)

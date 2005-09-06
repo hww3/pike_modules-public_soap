@@ -6,10 +6,11 @@ static string name;
 static string type;
 
 static Encoding.Type val;
+static Encoding.RPCParamDirection direction;
 
-static void create(string|void name, string type)
+static void create(string|void name, Encoding.Type type, Encoding.RPCParamDirection d)
 {
-  val = Encoding.get_rpc_type(type)(name);
+  direction = d;
 }
 
 void set(mixed v)
