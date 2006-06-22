@@ -7,13 +7,13 @@ import .Constants;
 static string name;
 static string target_namespace;
 
-static mapping(string:SOAPType) types = ([]);
-static mapping(string:SOAPMessage) messages = ([]);
-static mapping(string:SOAPOperation) operations = ([]);
-static mapping(string:SOAPPortType) porttypes = ([]);
-static mapping(string:SOAPBinding) bindings = ([]);
-static mapping(string:SOAPPort) ports = ([]);
-static mapping(string:SOAPService) services = ([]);
+static mapping(string:WSDL.Type) types = ([]);
+static mapping(string:WSDL.Message) messages = ([]);
+static mapping(string:WSDL.Operation) operations = ([]);
+static mapping(string:WSDL.PortType) porttypes = ([]);
+static mapping(string:WSDL.Binding) bindings = ([]);
+static mapping(string:WSDL.Port) ports = ([]);
+static mapping(string:WSDL.Service) services = ([]);
 
 //!
 mapping get_types()
@@ -132,7 +132,7 @@ void decode(Node w)
             break;
 
           case "message":
-            SOAPMessage m = SOAPMessage(c);
+            SOAPMessage m = WSDL.Message(c);
             messages[m->get_name()] = m;
             break;
 
@@ -153,144 +153,3 @@ void decode(Node w)
   }
 }
 
-//!
-class SOAPType
-{
-}
-
-//!
-class SOAPMessage
-{
-  static string name;
-  array part_order = ({});
-  mapping parts = ([]);
-
-  //!
-  void create(void|Node m)
-  {
-    if(m) decode(m);
-  }
-
-  //!
-  mapping get_parts()
-  {
-    return parts;
-  }
- 
-  //!
-  array get_part_order()
-  {
-    return part_order;
-  }
-
-  //!
-  string get_name()
-  {
-    return name;
-  }
-
-  //!
-  void set_name(string _name)
-  {
-    name = _name;
-  }
-
-  //!
-  void decode(Node m)
-  {
-    name = m->get_attributes()->name;    
-
-    foreach(m->children(); int i; Node c)
-    {
-      if(c->get_node_type() != Public.Parser.XML2.Constants.ELEMENT_NODE)
-        continue;
-
-      if(c->get_node_name() == "part") // let's parse a part...
-      {
-         mapping a = c->get_attributes();
-
-         part_order += ({ a->name });
-         Part p = Part();
-         p->set_name(a->name);
-         p->set_element(a->element);
-         p->set_type(a->type);         
-        
-         parts[p->get_name()] = p;
-      }        
-    }
-  }
-
-  //!
-  class Part
-  {
-    static string name;
-    static string element;
-    static string type;
- 
-    //!
-    void create()
-    {
-    }
-    
-    //!
-    void set_name(string _name)
-    {
-       name = _name;
-    }
-
-    //!    
-    void set_element(string _element)
-    {
-       element = _element;
-    }
-
-    //!
-    void set_type(string _type)
-    {
-       type = _type;
-    }
-
-    //!
-    string get_name()
-    {
-      return name;
-    }
-
-    //!
-    string get_element()
-    {
-      return element;
-    }
-
-    //!
-    string get_type()
-    {
-      return type;
-    }
-  }
-}
-
-//!
-class SOAPOperation
-{
-}
-
-//!
-class SOAPPortType
-{
-}
-
-//!
-class SOAPBinding
-{
-}
-
-//!
-class SOAPPort
-{
-}
-
-//!
-class SOAPService
-{
-}
