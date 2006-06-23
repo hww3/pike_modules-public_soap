@@ -15,6 +15,9 @@ static mapping(string:WSDL.Binding) bindings = ([]);
 static mapping(string:WSDL.Port) ports = ([]);
 static mapping(string:WSDL.Service) services = ([]);
 
+static int have_documentation = 0;
+static int have_types = 0;
+
 //!
 mapping get_types()
 {
@@ -90,6 +93,16 @@ void set_target_namespace(string _target_namespace)
   target_namespace = _target_namespace;
 }
 
+static int decode_types(Node c)
+{
+
+}
+
+static void decode_import(Node c)
+{
+
+}
+
 //!
 void decode(Node w)
 {
@@ -123,26 +136,40 @@ void decode(Node w)
        switch(c->get_node_name())
        {
           case "documentation":
+            if(have_documentation) throw(Error.Generic("Duplicate documentation element!\n"));
+            have_documentation = 1;
             break;
  
           case "types":
             // the types element is tricky, because we can have multiple 
             // definitions within a single tag.
-
+            if(have_types) throw(Error.Generic("Duplicate types element!\n"));
+            have_types = 1;
+            decode_types(c);
             break;
 
           case "message":
-            SOAPMessage m = WSDL.Message(c);
+            WSDL.Message m = WSDL.Message(c);
             messages[m->get_name()] = m;
             break;
 
           case "portType":
+            WSDL.PortType p = WSDL.PortType(c);
+            porttypes[p->get_name()] = p;
             break;
 
           case "binding":
+            WSDL.Binding b = WSDL.Binding(c);
+            bindings[b->get_name()] = p;
             break;
 
           case "service":
+            WSDL.Service s = WSDL.Service(c);
+            services[s->get_name()] = s;
+            break;
+
+          case "import":
+            decode_import(c);
             break;
 
           default:
